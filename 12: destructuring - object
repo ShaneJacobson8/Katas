@@ -1,0 +1,34 @@
+// 12: destructuring - object
+// To do: make all tests pass, leave the assert lines unchanged!
+// Follow the hints of the failure messages!
+
+describe('Destructure objects', () => {
+  it('by surrounding the left-hand variable with `{}`', () => {
+    const {x} = {x: 1}; // wrap variable in curly braces ***
+    assert.equal(x, 1);
+  });
+  describe('nested', () => {
+    it('multiple objects', () => {
+      const magic = {first: 23, second: 42};
+      const {magic: {second}} = {magic}; //replace array brakets to curly braces to pass value***
+      assert.equal(second, 42);
+    });
+    it('object and array', () => {
+      const {z:[,x]} = {z: [23, 42]}; //add comma in variable to ignore array index 0 (23)***
+      assert.equal(x, 42);
+    });
+    it('array and object', () => {
+      const [,[{lang}]] = [null, [{env: 'browser', lang: 'ES6'}]];
+      assert.equal(lang, 'ES6'); //put array on {lang} to match corresponding places***
+    });
+  });
+  describe('interesting', () => {
+    it('missing refs become undefined', () => {
+      const {z} = {x: 1}; // remove z:2 definition for outcome to become undefined***
+      assert.equal(z, void 0);
+    });
+    it('destructure from builtins (string)', () => {
+      const {substr} = "Any string will do"; //remove number value and put in string***
+      assert.equal(substr, String.prototype.substr);
+    });
+  });
