@@ -26,8 +26,8 @@ describe('Pass a function to a generator', () => {
     function* generatorFunction() {
       yield (yield (yield 1)());
     }
-    var iteratedOver = generatorFunction();
-    var iteratedOver = [iterator.next().value, iterator.next(fn).value, iterator.nexxt(3).value] //creat function***
+    var iterator = generatorFunction();
+    var iteratedOver = [iterator.next().value, iterator.next(fn).value,iterator.next(3).value];
     assert.deepEqual([1, 2, 3], iteratedOver);
   });
 });
