@@ -1,0 +1,63 @@
+// 65: Set - API overview
+// To do: make all tests pass, leave the assert lines unchanged!
+// Follow the hints of the failure messages!
+
+describe('`Set` API overview', function(){
+  const api = ['size', 'add', 'clear', 'delete', 'entries', 'forEach', 'has', 'keys', 'values'];
+  let set;
+  beforeEach(function() {
+    set = new Set(api);
+  });
+  it('a Set can be created from an array', function() {
+    let set = new Set(api); //changed [] to api***
+    assert.deepEqual(Array.from(set), api);
+  });
+  it('`size` is the number of values', function() {
+    const theSize = set.size; //change to size***
+    assert.equal(theSize, api.length);
+  });
+  it('`add()` appends the given value', function() {
+    // Hint: To make the content of `api` and `set` consistent you can add the
+    // `Symbol.iterator` to the `set`. Strongly speaking it is missing in the API.
+    set.add(Symbol.iterator) //add this line***
+    assert.equal(set.size, api.length + 1);
+  });
+  it('`clear()` removes all elements', function() {
+    set.clear() //add this line***
+    assert.equal(set.size, 0);
+  });
+  it('`delete()` removes the given value', function() {
+    set.delete('delete') //added this line
+    assert.equal(set.size, api.length - 1);
+  });
+  it('`entries()` returns an iterator for all values', function() {
+    const expectedEntries = api.map(entry => [entry, entry]);
+    const actualEntries = set.entries(); //changed to entries()***
+    assert.deepEqual([...actualEntries], expectedEntries);
+  });
+  it('`forEach()` calls a callback for each value', function() {
+    let values = [];
+    set.forEach(value => { values.push(value); }); //change to forEach***
+    assert.deepEqual(values, api);
+  });
+  it('`has()` returns true if the given value is in the set', function() {
+    const propertyName = 'keys'; //assigned to keys***
+  
+    assert.equal(set.has(propertyName), true);
+  });
+  describe('returns an iterator that contains all values', function() {
+    // In order to be alike to `Map`, `keys()` and `values()` are essentially the same thing for a `Set`.
+    it('`keys()`', function() {
+      const allKeys = set.keys(set); //change to set***
+      assert.deepEqual([...allKeys], api);
+    });
+    it('`values()`', function() {
+      const allValues = set.values(); //added s to make values***
+      assert.deepEqual([...allValues], api);
+    });
+    it('`[Symbol.iterator]()`', function() {
+      const iteratorKey = Symbol.iterator; //assign to symbol.iterator***
+      assert.deepEqual([...set[iteratorKey]()], api);
+    });
+  });
+});
